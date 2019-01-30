@@ -15,12 +15,14 @@ declare module PROJECT {
     class Player extends BABYLON.MeshComponent {
         count: number;
         speed: number;
-        private items;
+        items: BABYLON.Mesh[];
         constructor(owner: BABYLON.AbstractMesh, scene: BABYLON.Scene, tick?: boolean, propertyBag?: any);
         protected ready(): void;
         protected start(): void;
         protected update(): void;
         private updatePlayerMovement;
+        private updatePickupCollisions;
+        private updateCollectionCount;
         protected after(): void;
         protected destroy(): void;
     }

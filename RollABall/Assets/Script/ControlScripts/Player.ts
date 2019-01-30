@@ -5,15 +5,14 @@ module PROJECT {
 
         count: number = 0;
         speed: number = 0;
-        private items: BABYLON.Mesh[] = [];
+        items: BABYLON.Mesh[] = [];
 
         public constructor(owner: BABYLON.AbstractMesh,
             scene: BABYLON.Scene,
             tick: boolean = true,
             propertyBag: any = {}) {
             super(owner, scene, tick, propertyBag);
-            this.speed = this.getProperty("speed", 1.0);
-        }
+       }
 
         protected ready(): void {
             // Scene execute when ready
@@ -22,12 +21,18 @@ module PROJECT {
 
         protected start(): void {
             // Start component function
-            console.log(this.mesh);
+            this.speed = this.getProperty("speed", 1.0);
+            this.items = this.scene.getMeshesByTags("Pickup");
+            this.count = 0;
+            this.updateCollectionCount();
         }
 
         protected update(): void {
             // Update render loop function
             this.updatePlayerMovement(); // Cause input to move ball
+
+            this.updatePickupCollisions();
+            this.updateCollectionCount();
         }
 
         private updatePlayerMovement(): void {
@@ -36,6 +41,28 @@ module PROJECT {
             
             this.mesh.physicsImpostor.applyImpulse(
                 new BABYLON.Vector3(hor * this.speed, 0.0, vert * this.speed), this.mesh.getAbsolutePosition());
+        }
+
+        private updatePickupCollisions(): void {
+            if (this.items.length > 0) {
+                this.items.forEach((item) => {
+                    if (item && item.intersectsMesh(this.mesh)) {
+                        if (item.isEnabled()) {
+                            item.setEnabled(false);
+                            this.count += 1;
+                            this.updateCollectionCount();
+                        }
+                    }
+                });
+            }
+        }
+
+        private updateCollectionCount() {
+            // this.element.innerHTML = "Count: " + this.count.toString();
+            // if (this.count >= 12) {
+            //     this.winner.className = "";
+            // }
+
         }
 
         protected after(): void {

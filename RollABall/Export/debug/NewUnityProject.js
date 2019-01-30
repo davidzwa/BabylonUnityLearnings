@@ -53,7 +53,6 @@ var PROJECT;
             this.count = 0;
             this.speed = 0;
             this.items = [];
-            this.speed = this.getProperty("speed", 1.0);
         }
         ready() {
             // Scene execute when ready
@@ -61,16 +60,41 @@ var PROJECT;
         }
         start() {
             // Start component function
-            console.log(this.mesh);
+            this.speed = this.getProperty("speed", 1.0);
+            this.items = this.scene.getMeshesByTags("Pickup");
+            console.log(this.items);
+            this.count = 0;
+            this.updateCollectionCount();
         }
         update() {
             // Update render loop function
             this.updatePlayerMovement(); // Cause input to move ball
+            this.updatePickupCollisions();
+            this.updateCollectionCount();
         }
         updatePlayerMovement() {
             var vert = this.manager.getUserInput(BABYLON.UserInputAxis.Vertical, BABYLON.PlayerNumber.One);
             var hor = this.manager.getUserInput(BABYLON.UserInputAxis.Horizontal, BABYLON.PlayerNumber.One);
             this.mesh.physicsImpostor.applyImpulse(new BABYLON.Vector3(hor * this.speed, 0.0, vert * this.speed), this.mesh.getAbsolutePosition());
+        }
+        updatePickupCollisions() {
+            if (this.items.length > 0) {
+                this.items.forEach((item) => {
+                    if (item && item.intersectsMesh(this.mesh)) {
+                        if (item.isEnabled()) {
+                            item.setEnabled(false);
+                            this.count += 1;
+                            this.updateCollectionCount();
+                        }
+                    }
+                });
+            }
+        }
+        updateCollectionCount() {
+            // this.element.innerHTML = "Count: " + this.count.toString();
+            // if (this.count >= 12) {
+            //     this.winner.className = "";
+            // }
         }
         after() {
             // After render loop function
@@ -161,6 +185,7 @@ var PROJECT;
         start() {
             // Start component function
             this.speed = this.getProperty("speed", 0.01);
+            console.log(this);
         }
         update() {
             // Update render loop function
