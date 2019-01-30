@@ -2,6 +2,10 @@
 An attempt to give people better access to the Unity Babylon Toolkit (exporter, server) to make your game in the (hopefully) newest BabylonJS and Unity ~2018.3.3f1.
 Goal: Give and collect Unity-BabylonJS examples
 
+# Contains:
+- Roll a ball scene (incomplete)
+- Baked light scene (99% complete)
+
 ## Requirements
 - NPM
 - BabylonJS package (3.3.0)
