@@ -1,0 +1,15 @@
+/* Babylon Typescript Class Template */
+
+module PROJECT {
+    export class #SCRIPTNAME# {
+        public hello:string;
+
+        public constructor() {
+            this.hello = "Hello World";
+        }
+
+        public sayHello(name:String): string {
+            return "Hello, " + name;
+        }
+    }
+}

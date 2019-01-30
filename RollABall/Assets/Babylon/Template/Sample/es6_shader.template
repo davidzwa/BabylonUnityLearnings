@@ -1,0 +1,59 @@
+var PROJECT;
+/* Babylon Shader Controller Template */
+
+(function (PROJECT) {
+    class NewShaderController extends BABYLON.UniversalShaderMaterial {
+        constructor(name, scene, tick = true) {
+            super(name, scene, tick);
+            this.program = "default";
+            // Example runtime property
+            this.setFloat("time", 0.0);
+        }
+
+        ready() {
+            // Scene execute when ready
+        }
+
+        start() {
+            // Start component function
+            this.setFloat("time", 0.0);
+        }
+
+        update() {
+            // Update render loop function
+            this.setFloat("time", this.getManager().time);
+        }
+
+        define(locals) {
+            // Shader define loop function
+            locals.defineBoolean("TIME");
+        }
+
+        after() {
+            // After render loop function
+        }
+
+        destroy() {
+            // Destroy component function
+        }
+        
+        /* Shader Material Factory Class Functions */
+        clone(name) {
+            var result = BABYLON.SerializationHelper.Clone(() => new PROJECT.NewShaderController(name, this.getScene()), this);
+            BABYLON.UniversalShaderMaterial.CloneCustomProperties(this, result);
+            return result;
+        }
+        serialize() {
+            var serializationObject = BABYLON.SerializationHelper.Serialize(this);
+            serializationObject.customType = "PROJECT.NewShaderController";
+            BABYLON.UniversalShaderMaterial.SerializeCustomProperties(this, serializationObject);
+            return serializationObject;
+        }
+        static Parse(source, scene, rootUrl) {
+            var material = BABYLON.SerializationHelper.Parse(() => new PROJECT.NewShaderController(source.name, scene), source, scene, rootUrl);
+            BABYLON.UniversalShaderMaterial.ParseCustomProperties(material, source, scene, rootUrl);
+            return material;
+        }
+    }
+    PROJECT.NewShaderController = NewShaderController;
+})(PROJECT || (PROJECT = {}));

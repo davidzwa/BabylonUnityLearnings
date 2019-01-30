@@ -1,0 +1,62 @@
+
+The BabylonJS - ASP.NET Static Scene File Module is a static file handler for .babylon scene files. 
+It supports serving pre-compressed babylon scene files to reduce network bandwith performance for large
+scene files with detailed geometry, large skeletions and lots of animations. 
+
+To install, simply copy 'ToolkitModule.dll' to your ASP.NET (4.5 or Higher) Web Application 'bin' folder.
+
+=======================================================
+Note: You must enable manage pipeline for all request
+=======================================================
+
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+  <appSettings>
+    <add key="CompressExtensions" value=".bc, .js, .jsx, .hdr, .dds, .bin, .mem, .glb, .gltf, .wasm, .data, .json, .babylon, .babylonbinarymeshdata, .babylonbinarygeometrydata" />
+    <add key="SecureConnectionRequired" value="false" />
+    <add key="SecureConnectionRedirectPort" value="443" />
+  </appSettings>
+  <system.web>
+    <compilation debug="true" targetFramework="4.5" />
+    <httpRuntime targetFramework="4.5" />
+  </system.web>
+  <system.webServer>
+    <modules runAllManagedModulesForAllRequests="true" />
+    <staticContent>		
+			<remove fileExtension=".bc" />
+			<mimeMap fileExtension=".bc" mimeType="application/bc" />
+			<remove fileExtension=".fx" />
+			<mimeMap fileExtension=".fx" mimeType="application/fx" />
+			<remove fileExtension=".gz" />
+			<mimeMap fileExtension=".gz" mimeType="application/gzip" />
+			<remove fileExtension=".dds" />
+			<mimeMap fileExtension=".dds" mimeType="image/vnd-ms.dds" />
+			<remove fileExtension=".hdr" />
+			<mimeMap fileExtension=".hdr" mimeType="application/hdr" />
+			<remove fileExtension=".tga" />
+			<mimeMap fileExtension=".tga" mimeType="application/tga" />
+			<remove fileExtension=".mem" />
+			<mimeMap fileExtension=".mem" mimeType="application/mem" />
+			<remove fileExtension=".data" />
+			<mimeMap fileExtension=".data" mimeType="application/data" />
+			<remove fileExtension=".wasm" />
+			<mimeMap fileExtension=".wasm" mimeType="application/wasm" />
+			<remove fileExtension=".babylon" />
+			<mimeMap fileExtension=".babylon" mimeType="application/babylon" />	
+			<remove fileExtension=".babylonbinarymeshdata" />
+			<mimeMap fileExtension=".babylonbinarymeshdata" mimeType="application/babylonbinarymeshdata" />
+			<remove fileExtension=".babylonbinarygeometrydata" />
+			<mimeMap fileExtension=".babylonbinarygeometrydata" mimeType="application/babylonbinarygeometrydata" />
+			<remove fileExtension=".unitypackage" />
+			<mimeMap fileExtension=".unitypackage" mimeType="application/unity" />
+    </staticContent>
+		<httpProtocol>
+			<customHeaders>
+				<add name="Access-Control-Allow-Origin" value="*" />
+				<add name="Access-Control-Allow-Headers" value="Content-Type" />
+				<add name="Access-Control-Allow-Methods" value="GET,POST,PUT,DELETE,OPTIONS" />
+			  <add name="Access-Control-Allow-Credentials" value="true" />				
+			</customHeaders>
+		</httpProtocol>
+  </system.webServer>
+</configuration>
