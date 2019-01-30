@@ -112,6 +112,41 @@ var PROJECT;
     PROJECT.BallScene = BallScene;
 })(PROJECT || (PROJECT = {}));
 /* Babylon Mesh Component Template */
+/// <reference path="../../Babylon/Library/babylon.d.ts" />
+/// <reference path="../../Babylon/Library/babylon.manager.d.ts" />
+var PROJECT;
+/* Babylon Mesh Component Template */
+/// <reference path="../../Babylon/Library/babylon.d.ts" />
+/// <reference path="../../Babylon/Library/babylon.manager.d.ts" />
+(function (PROJECT) {
+    class CubeComponent extends BABYLON.MeshComponent {
+        constructor(owner, scene, tick = true, propertyBag = {}) {
+            super(owner, scene, tick, propertyBag);
+            this.owner = owner;
+        }
+        ready() {
+            // Scene execute when ready
+        }
+        start() {
+            // Start component function
+            this.owner.position = new BABYLON.Vector3(this.rand(), this.rand(6), this.rand());
+        }
+        update() {
+            // Update render loop function
+        }
+        after() {
+            // After render loop function
+        }
+        destroy() {
+            // Destroy component function
+        }
+        rand(num = 10) {
+            return Math.round(Math.random() * num);
+        }
+    }
+    PROJECT.CubeComponent = CubeComponent;
+})(PROJECT || (PROJECT = {}));
+/* Babylon Mesh Component Template */
 var PROJECT;
 /* Babylon Mesh Component Template */
 (function (PROJECT) {

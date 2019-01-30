@@ -5,7 +5,7 @@ if (!navigator.project) {
     navigator.project.scenePath = "scenes/";
     navigator.project.scriptPath = "scripts/";
     navigator.project.projectTitle = "New Unity Project";
-    navigator.project.defaultScene = "BallScene.babylon";
+    navigator.project.defaultScene = "WebVRTut.babylon";
     navigator.project._scriptLibraries = [];
     navigator.project._loadProjectScripts = function (scripts, index, tag) {
         var header = document.head || document.getElementsByTagName("head")[0];        
