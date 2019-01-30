@@ -1,0 +1,13 @@
+/* Global Application Script Template */
+
+BABYLON.SceneManager.OnWindowLoad(() => {
+    // Global Page Loaded Handler
+});
+
+BABYLON.SceneManager.OnDeviceReady(() => {
+    // Global Device Ready Handler
+});
+
+BABYLON.SceneManager.ExecuteWhenReady((scene:BABYLON.Scene, manager:BABYLON.SceneManager)=> {
+    // Global Scene Ready Handler
+});

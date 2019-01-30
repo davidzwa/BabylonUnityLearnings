@@ -1,0 +1,15 @@
+{
+    "compilerOptions": {
+        "experimentalDecorators": true,
+        "target": "ES6",
+        "module": "system",
+        "allowJs" : false,
+        "declaration": true,
+        "inlineSources": false,
+        "inlineSourceMap": false,
+        "outFile": "D:/Gaming/UnityProjects/UnityBabylonLearnings/RollABall/Export/debug/NewUnityProject.js"
+    },
+    "include": [
+        "assets/**/*"
+    ]    
+}

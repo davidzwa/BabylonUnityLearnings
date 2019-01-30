@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- ******************************************************************* -->
+<!-- BABYLON TOOLKIT - Universal Babylon Scene Loader Page Template      -->
+<!-- ******************************************************************* -->
+<head>
+    <!-- NO CSP -->
+    <meta http-equiv="Content-Security-Policy" content="default-src * ws: wss: gap: data: blob: file: http: https:; style-src 'self' 'unsafe-inline' *; script-src 'self' 'unsafe-inline' 'unsafe-eval' *" />
+    <!-- NO CACHE -->
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="-1">
+    <meta http-equiv="CACHE-CONTROL" content="NO-CACHE">
+    <title>New Unity Project</title>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html" charset="utf-8">
+    <meta name="edge" content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, shrink-to-fit=no, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="format-detection" content="telephone=no">
+    <style>
+        html, body {
+            position: absolute;
+            min-height: 100%;
+            width: 100%;
+            height: 100%;
+            padding: 0px;
+            margin: 0px;
+            overflow: hidden;
+            font-family: "Segoe UI", "Segoe WP", "Verdana", "Arial";
+            background-color: #3B789A;
+            touch-action: none;
+            -ms-touch-action: none;
+        }
+        #panel {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 400px;
+            height: 100px;
+            min-width: 400px;
+            min-height: 100px;
+            margin-top: -50px;
+            margin-left: -200px;
+            z-index: 1000;
+        }
+        #load {
+            border: 4px solid #F3F3F3;
+            border-top: 4px solid #E02127;
+            border-radius: 50%;
+            width: 72px;
+            height: 72px;
+            z-index: 1001;
+            animation: spin 2s linear infinite;
+            touch-action: none;
+            -ms-touch-action: none;
+        }
+        #sts {
+            position: absolute;
+            top: 50%;
+            left:50%;
+            padding: 0px;
+            margin: 0px;
+            z-index: 1001;
+            width: 100px;
+            min-width: 100px;
+            margin-top: -14px;
+            margin-left: -50px;
+            font-size: 10px;
+            text-align: center;
+            color: #F3F3F3;
+            outline: none;
+            overflow: hidden;
+            touch-action: none;
+            -ms-touch-action: none;
+        }
+        #proj {
+            margin: 0px;
+            padding: 0px;
+            padding-top: 16px;
+            z-index: 1001;
+            width: 400px;
+            font-size: 14px;
+            text-align: center;
+            color: #F3F3F3;
+            outline: none;
+            overflow: hidden;
+            touch-action: none;
+            -ms-touch-action: none;
+        }
+        #cvs {
+            position: absolute;
+            min-height: 100%;
+            width: 100%;
+            height: 100%;
+            padding: 0px;
+            margin: 0px;
+            z-index: 0;
+            opacity: 0;
+            outline: none;
+            overflow: hidden;
+            touch-action: none;
+            -ms-touch-action: none;
+        }
+        .hidden { display: none; }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+    <script type="text/javascript">
+        function getUrlParameter(name) {
+            name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+            var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+            var results = regex.exec(window.location.search);
+            return (results !== null) ? decodeURIComponent(results[1].replace(/\+/g, ' ')) : null;
+        };    
+    </script>
+</head>
+<body>
+    <div id="panel">
+        <center>
+            <div id="load"></div>
+            <div id="sts"></div>
+            <div id="proj">New Unity Project</div>
+        </center>
+    </div>
+    <canvas id="cvs"></canvas>
+    <script type="text/javascript">
+        var pagetype = "game", defaultmap = "BallScene.babylon", antialias = true, adaptive = true, offline=false, datax = "#2CB24B", folder = "scenes/", title = "New Unity Project";
+        var loaded = false, scene = null, downloaded = 0;
+        var panel = document.getElementById("panel");
+        var loader = document.getElementById("load");
+        var label = document.getElementById("sts");
+        var proj = document.getElementById("proj");
+        var divcvs = document.getElementById("cvs");
+        // ************************************************************************ //
+        // QUERY STRING - Parse Root Urls And Scene Name Parameters                 //
+        // ************************************************************************ //
+        var rooturl = "" + (getUrlParameter("root") || "");
+        if (rooturl != null && rooturl !== "" && !rooturl.endsWith("/")) rooturl += "/";
+        var sceneurl = "" + (getUrlParameter("path") || folder);
+        if (sceneurl != null && sceneurl !== "" && !sceneurl.endsWith("/")) sceneurl += "/";
+        var scenename = "" + (getUrlParameter("scene") || defaultmap);
+        var scenepath = "" + (rooturl + sceneurl);
+        // ************************************************************************ //
+        // PROJECT LOADING - Attach Project Loaded Document Event Handler           //
+        // ************************************************************************ //
+        document.addEventListener("projectload", function() { 
+            if (window.BABYLON) {
+                var engine = new BABYLON.Engine(divcvs, antialias, null, adaptive);
+                var progress = new BABYLON.ToolkitProgress("");
+                progress.panelElement = panel;
+                progress.loaderElement = loader;
+                progress.statusElement = label;
+                progress.projectElement = proj;
+                progress.borderPrefix = "4px solid";
+                engine.loadingScreen = progress;
+                engine.enableOfflineSupport = offline;
+                engine.clear(new BABYLON.Color3(0, 0, 0), true, true);
+                engine.displayLoadingUI();
+                progress.updateLoadingUI();
+                window.addEventListener("resize", function() { engine.resize(); });
+                // ..
+                // Scene Loading Functions
+                // ..
+                var updateStatus = function(status) {
+                    engine.loadingUIText = status;
+                    progress.updateLoadingUI();
+                };
+                var showSceneLoader = function() {
+                    progress.statusColor = datax;
+                    divcvs.style.opacity = "0";
+                    proj.innerHTML = title;
+                    engine.clear(new BABYLON.Color3(0, 0, 0), true, true);
+                    engine.displayLoadingUI();
+                    updateStatus("");
+                };
+                var removeSceneLoader = function() {
+                    engine.hideLoadingUI();
+                    proj.innerHTML = "";
+                    divcvs.style.opacity = "1";
+                    updateStatus("");
+                };
+                var executeSceneLoader = function(root, name) {
+                    // ************************************************************************ //
+                    // SCENE LOADING - Loads A New Scene And Creates A Manager Instance         //
+                    // ************************************************************************ //
+                    BABYLON.SceneManager.LoadScene(root, name, engine, function(newscene) {
+                        scene = newscene;
+                        scene.executeWhenReady(function() {
+                            loaded = true;
+                            engine.runRenderLoop(function() { scene.render(); });
+                            removeSceneLoader();
+                        });
+                    }, function(evt) {
+                        if (evt.lengthComputable) {
+                            updateStatus((evt.loaded * 100 / evt.total).toFixed() + "%");
+                        } else {
+                            downloaded = evt.loaded / (1024 * 1024);
+                            var units = "MB";
+                            var amount = (Math.floor(downloaded * 100.0) / 10.0);
+                            if (amount < 1) amount = 1;
+                            if (amount > 1024) {
+                                units = "GB";
+                                amount = (amount / 1024);
+                            }
+                            updateStatus(amount + units);
+                        }
+                    });
+                };
+                // ..
+                // Default babylon scene loader
+                // ..
+                var defaultSceneLoader = function(root, name) {
+                    scene = null;
+                    loaded = false;
+                    showSceneLoader();
+                    executeSceneLoader(root, name);            
+                };
+                defaultSceneLoader(scenepath, scenename);
+            }
+        }, false);
+    </script>
+    <!-- ******************************************************************* -->
+    <!-- IMPORT PROJECT - Babylon Toolkit Project Libraries And Properties   -->
+    <!-- ******************************************************************* -->
+    <script type="text/javascript">
+        var headerele = document.head || document.getElementsByTagName("head")[0];
+        var projectjs = document.createElement("script");
+        projectjs.setAttribute("type", "text/javascript");
+        projectjs.setAttribute("src", (rooturl + "project.js"));
+        headerele.appendChild(projectjs)
+    </script>
+    <!-- ******************************************************************* -->
+</body>
+</html>

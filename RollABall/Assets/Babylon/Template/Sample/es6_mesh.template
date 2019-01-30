@@ -1,0 +1,31 @@
+window.PROJECT;
+/* Babylon Mesh Component Template */
+
+(function (PROJECT) {
+    class NewMeshComponent extends BABYLON.MeshComponent {
+        constructor(owner, scene, tick = true, propertyBag = {}) {
+            super(owner, scene, tick, propertyBag);
+        }
+
+        ready() {
+            // Scene execute when ready
+        }
+
+        start() {
+            // Start component function
+        }
+
+        update() {
+            // Update render loop function
+        }
+
+        after() {
+            // After render loop function
+        }
+        
+        destroy() {
+            // Destroy component function
+        }
+    }
+    window.PROJECT.NewMeshComponent = NewMeshComponent;
+})(window.PROJECT || (window.PROJECT = {}));
