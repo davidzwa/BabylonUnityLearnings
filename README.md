@@ -1,12 +1,6 @@
 # Babylon & Unity Toolkit  - Learnings
 An attempt to give people better access to the Unity Babylon Toolkit (exporter, server) to make your game in the (hopefully) newest BabylonJS and Unity ~2018.3.3f1.
-
-# Repo goals
-- Give and collect Unity-BabylonJS examples
-- Structure your learning curve in BabylonJS to make a **real** game
-- Provide informative URL's (will move it to Wiki later)
-- (Future) provide projects for youtube content
-- (Future) provide bug support & updates for the Unity Toolkit (only)
+Goal: Give and collect Unity-BabylonJS examples
 
 ## Requirements
 - NPM
@@ -15,7 +9,6 @@ An attempt to give people better access to the Unity Babylon Toolkit (exporter, 
 - Babylon Toolkit - Unity asset ([Github alpha](https://github.com/BabylonJS/Exporters/tree/master/Unity/EditorToolkit/Content))
 - Unity
 - VSCode (advised over Rider, personal preference)
-
 ### Nice To Have's
 - ProBuilder (fast, optimal, in-editor mesh creation, UV mapping, UV correction and easy material assignment)
 
@@ -26,6 +19,7 @@ An attempt to give people better access to the Unity Babylon Toolkit (exporter, 
 - RollABall video 2 (outdated API) [Mackey24 video 2](http://mackey.cloud/files/videos/u3dbabylonBall2.mp4)
 - RollABall video 2 (outdated API) [Mackey24 video 2](http://mackey.cloud/files/videos/u3dbabylonBall3.mp4)
 - RollABall result (outdated API) [Mackey24 result](http://mackey.cloud/games/ball/)
+- WebVR attempt (unfinished) [Youtube](https://www.youtube.com/watch?v=Hq-p9EqhaWE)
 ### Reference Material
 - [Babylon Toolkit setup](https://doc.babylonjs.com/resources/projects)
 - [Babylon Toolkit description](https://doc.babylonjs.com/resources/intro) - Only a rough reference
