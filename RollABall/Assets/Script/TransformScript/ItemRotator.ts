@@ -15,7 +15,6 @@ module PROJECT {
         protected start() :void {
             // Start component function
             this.speed = this.getProperty("speed", 0.01);
-            console.log(this);
         }
 
         protected update() :void {

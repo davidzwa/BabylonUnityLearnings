@@ -12,6 +12,20 @@ declare module PROJECT {
     }
 }
 declare module PROJECT {
+    class GUIController extends BABYLON.MeshComponent {
+        title: string;
+        textBlock: BABYLON.GUI.TextBlock;
+        GUI: BABYLON.GUI.AdvancedDynamicTexture;
+        playerCount: number;
+        constructor(owner: BABYLON.AbstractMesh, scene: BABYLON.Scene, tick?: boolean, propertyBag?: any);
+        protected ready(): void;
+        protected start(): void;
+        protected update(): void;
+        protected after(): void;
+        protected destroy(): void;
+    }
+}
+declare module PROJECT {
     class Player extends BABYLON.MeshComponent {
         count: number;
         speed: number;

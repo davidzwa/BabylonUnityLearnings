@@ -9,7 +9,7 @@ BABYLON.SceneManager.OnDeviceReady(() => {
     console.log("Ready device handler");
 });
 
-BABYLON.SceneManager.ExecuteWhenReady((scene:BABYLON.Scene, manager:BABYLON.SceneManager)=> {
+BABYLON.SceneManager.ExecuteWhenReady((scene: BABYLON.Scene, manager: BABYLON.SceneManager) => {
     // Global Scene Ready Handler
     console.log("Ready scene: ", scene);
 });

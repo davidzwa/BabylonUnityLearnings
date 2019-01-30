@@ -15,7 +15,7 @@
   "AttachUnityEditor": true,
   "ShowDebugSockets": false,
   "ShowDebugColliders": false,
-  "ShowPhysicsImposter": false,
+  "ShowPhysicsImposter": true,
   "ColliderVisibility": 0.25,
   "SocketColliderSize": 0.125,
   "StaticVertexLimit": false,

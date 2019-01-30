@@ -43,6 +43,43 @@ var PROJECT;
     }
     PROJECT.BallCamera = BallCamera;
 })(PROJECT || (PROJECT = {}));
+/* Babylon Scene Controller Template */
+var PROJECT;
+/* Babylon Scene Controller Template */
+(function (PROJECT) {
+    class GUIController extends BABYLON.MeshComponent {
+        constructor(owner, scene, tick = true, propertyBag = {}) {
+            super(owner, scene, tick, propertyBag);
+            this.title = "";
+            this.playerCount = 0;
+            this.title = this.getProperty("Title", 'asd');
+        }
+        ready() {
+            // Scene execute when ready
+            this.GUI = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("myUI");
+            this.textBlock = new BABYLON.GUI.TextBlock();
+            this.textBlock.text = this.title;
+            this.textBlock.fontSize = 24;
+            this.textBlock.top = -100;
+            this.textBlock.color = "white";
+            this.GUI.addControl(this.textBlock);
+        }
+        start() {
+            // Start component function
+        }
+        update() {
+            // Update render loop function
+            // this.textBlock.text = this.title;
+        }
+        after() {
+            // After render loop function
+        }
+        destroy() {
+            // Destroy component function
+        }
+    }
+    PROJECT.GUIController = GUIController;
+})(PROJECT || (PROJECT = {}));
 /* Babylon Mesh Component Template */
 var PROJECT;
 /* Babylon Mesh Component Template */
@@ -62,7 +99,6 @@ var PROJECT;
             // Start component function
             this.speed = this.getProperty("speed", 1.0);
             this.items = this.scene.getMeshesByTags("Pickup");
-            console.log(this.items);
             this.count = 0;
             this.updateCollectionCount();
         }
@@ -185,7 +221,6 @@ var PROJECT;
         start() {
             // Start component function
             this.speed = this.getProperty("speed", 0.01);
-            console.log(this);
         }
         update() {
             // Update render loop function
