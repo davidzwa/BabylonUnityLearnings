@@ -1,11 +1,11 @@
 ﻿/* Babylon Scene Controller Template */
 
+var GUI;
 module PROJECT {
     export class GUIController extends BABYLON.MeshComponent {
         title: string = "";
         textBlock: BABYLON.GUI.TextBlock;
         GUI: BABYLON.GUI.AdvancedDynamicTexture;
-        
         playerCount: number = 0;
 
         public constructor(owner: BABYLON.AbstractMesh, scene: BABYLON.Scene, tick: boolean = true, propertyBag: any = {}) {
@@ -15,14 +15,6 @@ module PROJECT {
 
         protected ready(): void {
             // Scene execute when ready
-
-            this.GUI = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("myUI");
-            this.textBlock = new BABYLON.GUI.TextBlock();
-            this.textBlock.text = this.title;
-            this.textBlock.fontSize = 24;
-            this.textBlock.top = -100;
-            this.textBlock.color = "white";
-            this.GUI.addControl(this.textBlock);
         }
 
         protected start(): void {
@@ -32,6 +24,7 @@ module PROJECT {
         protected update(): void {
             // Update render loop function
             // this.textBlock.text = this.title;
+            // console.log(this.GUI.getSize().height / 2);
         }
 
         protected after(): void {
