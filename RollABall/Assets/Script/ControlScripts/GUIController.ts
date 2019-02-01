@@ -1,38 +1,57 @@
 ﻿/* Babylon Scene Controller Template */
+/// <reference path="../Models/GUIComponent.ts" />
 
-var GUI;
 module PROJECT {
-    export class GUIController extends BABYLON.MeshComponent {
-        title: string = "";
-        textBlock: BABYLON.GUI.TextBlock;
-        GUI: BABYLON.GUI.AdvancedDynamicTexture;
-        playerCount: number = 0;
+    export class GUIController extends PROJECT.GUIComponent {
+        GUIReference: string;
+        titleText: string;
+        titleName: string;
+        counterText: string;
+        counterName: string;
+        counterScore: number = 0;
 
         public constructor(owner: BABYLON.AbstractMesh, scene: BABYLON.Scene, tick: boolean = true, propertyBag: any = {}) {
             super(owner, scene, tick, propertyBag);
-            this.title = this.getProperty("Title",'asd');
-        }
-
-        protected ready(): void {
-            // Scene execute when ready
         }
 
         protected start(): void {
             // Start component function
+            this.titleText = this.getProperty("Title", 'Awesome game');
+            this.titleName = this.getProperty("TitleReference", 'TitleName');
+            this.counterText = this.getProperty("Counter", 'Score');
+            this.counterName = this.getProperty("ScoreReference", 'ScoreName');
+
+            this.setupGUI();
+            this.addDefaultTitle({
+                text: this.titleText,
+                name: this.titleName,
+                position: this.translate(VertPos.TOP, HorPos.MIDDLE, new Placement(100,0))
+            });
+            this.addBottomCounter({
+                text: this.counterText,
+                name: this.counterName,
+                position: this.translate(VertPos.BOTTOM, HorPos.RIGHT, new Placement(-100,-100))
+            }, this.counterScore);
         }
 
-        protected update(): void {
-            // Update render loop function
-            // this.textBlock.text = this.title;
-            // console.log(this.GUI.getSize().height / 2);
+        public updateTitle(text: string) {
+            this.controls.forEach(c => console.log(c));
+            console.log(this.controls);
+            this.controls.forEach(c => {
+                console.log(c);
+            });
+            console.log(this.controls.toString());
+            console.log(typeof this.controls);
+            // (<BABYLON.GUI.TextBlock>this.controls.find(c => c.name == this.titleName)).text = text;
         }
+        // public registerObserver() {
+            
+        // }
 
-        protected after(): void {
-            // After render loop function
-        }
+        // public registerUpdatable() {
+        //     // Pass events back to the component asking about it
+        // }
 
-        protected destroy(): void {
-            // Destroy component function
-        }
     }
+
 }

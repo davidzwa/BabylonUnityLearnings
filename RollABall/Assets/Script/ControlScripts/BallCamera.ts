@@ -1,5 +1,4 @@
 ﻿/* Babylon Camera Component Template */
-
 module PROJECT {
     export class BallCamera extends BABYLON.CameraComponent {
         public constructor(owner: BABYLON.Camera, scene: BABYLON.Scene, tick: boolean = true, propertyBag: any = {}) {

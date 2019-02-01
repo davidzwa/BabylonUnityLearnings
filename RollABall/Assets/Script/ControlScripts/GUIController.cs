@@ -13,7 +13,7 @@ namespace MyProject
 
         [BabylonProperty]
         public string GUITitle = "Title";
-
+		
 		protected GUIController()
 		{
 			this.babylonClass = "PROJECT.GUIController";

@@ -2,8 +2,10 @@
 
 module PROJECT {
     export class ItemRotator extends BABYLON.MeshComponent {
+        owner: BABYLON.AbstractMesh;
         public constructor(owner: BABYLON.AbstractMesh, scene: BABYLON.Scene, tick: boolean = true, propertyBag: any = {}) {
             super(owner, scene, tick, propertyBag);
+            this.owner = owner;
         }
 
         private speed:number = 0;
@@ -15,6 +17,8 @@ module PROJECT {
         protected start() :void {
             // Start component function
             this.speed = this.getProperty("speed", 0.01);
+            var animator:BABYLON.AnimationState = this.getComponent("BABYLON.AnimationState");
+            if (animator) console.log("Echo Owner: " + animator.enabled);
         }
 
         protected update() :void {

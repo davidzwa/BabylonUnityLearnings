@@ -1,7 +1,9 @@
 ﻿/* Babylon Mesh Component Template */
+/// <reference path="../Models/GUIComponent.ts" />
 
 module PROJECT {
     export class Player extends BABYLON.MeshComponent {
+        GUI: GUIController;
 
         count: number = 0;
         speed: number = 0;
@@ -12,11 +14,19 @@ module PROJECT {
             tick: boolean = true,
             propertyBag: any = {}) {
             super(owner, scene, tick, propertyBag);
-       }
+        }
 
         protected ready(): void {
             // Scene execute when ready
             console.log("Player controller started", this.manager);
+
+            try {
+                console.log(this.scene.getMeshByName("GUIController101"));
+                console.log(this.scene.getMeshByName("GUIController101").metadata.components[0].instance.updateTitle('asd'));
+            } catch (e) {
+                console.log(e);
+                debugger;
+            }
         }
 
         protected start(): void {
@@ -36,9 +46,9 @@ module PROJECT {
         }
 
         private updatePlayerMovement(): void {
-            var vert:number = this.manager.getUserInput(BABYLON.UserInputAxis.Vertical, BABYLON.PlayerNumber.One);
-            var hor:number = this.manager.getUserInput(BABYLON.UserInputAxis.Horizontal, BABYLON.PlayerNumber.One);
-            
+            var vert: number = this.manager.getUserInput(BABYLON.UserInputAxis.Vertical, BABYLON.PlayerNumber.One);
+            var hor: number = this.manager.getUserInput(BABYLON.UserInputAxis.Horizontal, BABYLON.PlayerNumber.One);
+
             this.mesh.physicsImpostor.applyImpulse(
                 new BABYLON.Vector3(hor * this.speed, 0.0, vert * this.speed), this.mesh.getAbsolutePosition());
         }
