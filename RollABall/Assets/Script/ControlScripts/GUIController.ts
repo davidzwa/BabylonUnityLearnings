@@ -30,26 +30,20 @@ module PROJECT {
             this.addBottomCounter({
                 text: this.counterText,
                 name: this.counterName,
-                position: this.translate(VertPos.BOTTOM, HorPos.RIGHT, new Placement(-100,-100))
+                position: this.translate(VertPos.BOTTOM, HorPos.MIDDLE, new Placement(-100,0))
             }, this.counterScore);
         }
 
         public updateTitle(text: string) {
-            this.controls.forEach(c => console.log(c));
-            console.log(this.controls);
-            this.controls.forEach(c => {
-                console.log(c);
-            });
-            console.log(this.controls.toString());
-            console.log(typeof this.controls);
-            // (<BABYLON.GUI.TextBlock>this.controls.find(c => c.name == this.titleName)).text = text;
+            (<BABYLON.GUI.TextBlock>this.controls[0]).text = text;
         }
+
+        public updateScore(text: string) {
+            (<BABYLON.GUI.TextBlock>this.controls[1]).text = this.getProperty("Counter", 'Score') + ": " + text;
+        }
+
         // public registerObserver() {
             
-        // }
-
-        // public registerUpdatable() {
-        //     // Pass events back to the component asking about it
         // }
 
     }

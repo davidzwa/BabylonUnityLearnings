@@ -21,12 +21,13 @@ module PROJECT {
             console.log("Player controller started", this.manager);
 
             try {
-                console.log(this.scene.getMeshByName("GUIController101"));
-                console.log(this.scene.getMeshByName("GUIController101").metadata.components[0].instance.updateTitle('asd'));
+                console.log("GUIController1", this.scene.getMeshByName("GUIController101"));
             } catch (e) {
-                console.log(e);
+                console.log("Exception:", e);
                 debugger;
             }
+
+            this.GUI = this.scene.getMeshByName("GUIController101").metadata.components[0].instance;
         }
 
         protected start(): void {
@@ -35,6 +36,8 @@ module PROJECT {
             this.items = this.scene.getMeshesByTags("Pickup");
             this.count = 0;
             this.updateCollectionCount();
+
+            this.GUI.updateTitle('Text2');
         }
 
         protected update(): void {
@@ -68,10 +71,7 @@ module PROJECT {
         }
 
         private updateCollectionCount() {
-            // this.element.innerHTML = "Count: " + this.count.toString();
-            // if (this.count >= 12) {
-            //     this.winner.className = "";
-            // }
+            this.GUI.updateScore(this.count.toString());
 
         }
 

@@ -1,5 +1,5 @@
 module PROJECT {
-    export class GUIComponent extends BABYLON.SceneComponent {
+    export class GUIComponent extends BABYLON.MeshComponent {
         GUI: BABYLON.GUI.AdvancedDynamicTexture;
         controls: BABYLON.GUI.Control[] = [];
         titleTxt: BABYLON.GUI.Control;
