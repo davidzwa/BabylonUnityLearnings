@@ -12,19 +12,38 @@ module PROJECT {
             this.GUI = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("myUI");
         }
 
-        protected addDefaultTitle(title: DefaultTextControl) {
+        protected addTitle(title: DefaultTextControl) {
             let titleBlock = this.defaultTextBlock(title);
-            this.GUI.addControl(titleBlock);
-            this.controls.push(titleBlock);
+            this.pushControl(titleBlock);
         }
 
-        protected addBottomCounter(counter: DefaultTextControl, initialValue: number = 0) {
-            let titleBlock = this.defaultTextBlock(counter);
-            titleBlock.text = counter.text + ": " + initialValue.toString();
+        protected addCounter(counter: DefaultTextControl, initialValue: number = 0) {
+            let counterBlock = this.defaultTextBlock(counter);
+            counterBlock.text = counter.text + ": " + initialValue.toString();
 
-            this.GUI.addControl(titleBlock);
-            this.controls.push(titleBlock);
+            this.pushControl(counterBlock);
         }
+
+        protected addMenuButtonWithObservable(buttonProperties: DefaultButtonControl): BABYLON.GUI.Button {
+            let menuButton = this.defaultButton(buttonProperties);
+            this.pushControl(menuButton);
+            return menuButton;
+        }
+
+        protected addMenuOverlay() {
+            let overlayRect = new BABYLON.GUI.Rectangle("MenuOverlay");
+            overlayRect.width = 1;
+            overlayRect.height = 1;
+            overlayRect.cornerRadius = 0;
+            overlayRect.color="black";
+            overlayRect.thickness = 4;
+            overlayRect.alpha = 0.5;
+            overlayRect.background = "black";
+
+            this.pushControl(overlayRect);
+        }
+
+w
 
         protected getControlByClass(klass: string) {
             return this.controls.find(c => c.name === klass);
@@ -46,6 +65,11 @@ module PROJECT {
             return offset;
         }
 
+        private pushControl(control: BABYLON.GUI.Control) {
+            this.controls.push(control);
+            this.GUI.addControl(control);
+        }
+
         private defaultTextBlock(control: DefaultTextControl) {
             let defaultTextBlock = new BABYLON.GUI.TextBlock(control.name)
             defaultTextBlock.text = control.text;
@@ -56,6 +80,23 @@ module PROJECT {
             return defaultTextBlock;
         }
 
+        private defaultButton(control: DefaultButtonControl) {
+            let defaultBtn = BABYLON.GUI.Button.CreateSimpleButton(control.name, control.text)
+            defaultBtn.fontSize = 24;
+            defaultBtn.top = control.position.top;
+            defaultBtn.left = control.position.left;
+            defaultBtn.height = control.height;
+            defaultBtn.width = control.width;
+            defaultBtn.background = "#67BC45";
+            defaultBtn.color = control.color ? control.color : "white";
+            return defaultBtn;
+        }
+
+    }
+
+    export interface DefaultButtonControl extends DefaultTextControl {
+        width: number,
+        height: any
     }
 
     export interface DefaultTextControl {
@@ -69,7 +110,7 @@ module PROJECT {
     export class Placement {
         top: number;
         left: number;
-        constructor(top = 0, left = 0) {
+        constructor(left = 0, top = 0) {
             this.top = top;
             this.left = left;
         }

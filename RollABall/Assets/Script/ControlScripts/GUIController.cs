@@ -11,8 +11,17 @@ namespace MyProject
 	{
         [Header("-GUI Properties-")]
 
-        [BabylonProperty]
-        public string GUITitle = "Title";
+        [BabylonProperty] public string Title = "Title";
+        [BabylonProperty] public string TitleText = "Awesome game";
+
+        [BabylonProperty] public string ScoreName = "Score";
+		[BabylonProperty] public string Score = "Score";
+
+        [BabylonProperty] public string MenuButtonName = "MenuButton";
+		[BabylonProperty] public string MenuButton = "Menu";
+		
+		
+		
 		
 		protected GUIController()
 		{

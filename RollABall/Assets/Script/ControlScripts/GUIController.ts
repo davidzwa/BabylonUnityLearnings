@@ -4,34 +4,56 @@
 module PROJECT {
     export class GUIController extends PROJECT.GUIComponent {
         GUIReference: string;
-        titleText: string;
-        titleName: string;
-        counterText: string;
-        counterName: string;
-        counterScore: number = 0;
+        private menuButton:BABYLON.GUI.Button;
 
         public constructor(owner: BABYLON.AbstractMesh, scene: BABYLON.Scene, tick: boolean = true, propertyBag: any = {}) {
             super(owner, scene, tick, propertyBag);
         }
 
-        protected start(): void {
-            // Start component function
-            this.titleText = this.getProperty("Title", 'Awesome game');
-            this.titleName = this.getProperty("TitleReference", 'TitleName');
-            this.counterText = this.getProperty("Counter", 'Score');
-            this.counterName = this.getProperty("ScoreReference", 'ScoreName');
+        public static getGUI(scene: BABYLON.Scene) {
+            return scene.getMeshByName("GUIController101").metadata.components[0].instance;
+        }
 
+        protected start(): void {
             this.setupGUI();
-            this.addDefaultTitle({
-                text: this.titleText,
-                name: this.titleName,
-                position: this.translate(VertPos.TOP, HorPos.MIDDLE, new Placement(100,0))
+            this.addTitle({
+                text: this.getProperty("Title", 'Awesome game'),
+                name: this.getProperty("TitleName", 'TitleName'),
+                position: this.translate(VertPos.TOP, HorPos.MIDDLE, new Placement(0, 100))
             });
-            this.addBottomCounter({
-                text: this.counterText,
-                name: this.counterName,
-                position: this.translate(VertPos.BOTTOM, HorPos.MIDDLE, new Placement(-100,0))
-            }, this.counterScore);
+            this.addCounter({
+                text: this.getProperty("Score", 'Score'),
+                name: this.getProperty("ScoreName", 'ScoreName'),
+                position: this.translate(VertPos.BOTTOM, HorPos.MIDDLE, new Placement(0, -100))
+            }, 0);
+            this.menuButton = this.addMenuButtonWithObservable({
+                text: this.getProperty("MenuButton", 'Menu'),
+                name: this.getProperty("MenuButtonName", 'MenuButton'),
+                position: this.translate(VertPos.BOTTOM, HorPos.LEFT, new Placement(200, -100)),
+                width: 0.1,
+                height: "40px"
+            });
+
+            this.getMenuButtonObservable().add((d, s) => {
+                console.log(d,s);
+                this.drawMenu();
+            }, undefined, undefined, this);
+        }
+
+        // General Observable Hook into button
+        public getMenuButtonObservable():BABYLON.Observable<any> {
+            return this.menuButton.onPointerUpObservable;
+        }
+
+        // Draw Menu and transparent overlay
+        public drawMenu() {
+            this.addMenuOverlay();
+        }
+
+        // Draw game HUD elements
+        public drawHUD() {
+
+            alert('asd');
         }
 
         public updateTitle(text: string) {
@@ -41,10 +63,6 @@ module PROJECT {
         public updateScore(text: string) {
             (<BABYLON.GUI.TextBlock>this.controls[1]).text = this.getProperty("Counter", 'Score') + ": " + text;
         }
-
-        // public registerObserver() {
-            
-        // }
 
     }
 

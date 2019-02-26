@@ -8,12 +8,14 @@ module PROJECT {
         count: number = 0;
         speed: number = 0;
         items: BABYLON.Mesh[] = [];
+        owner: BABYLON.AbstractMesh;
 
         public constructor(owner: BABYLON.AbstractMesh,
             scene: BABYLON.Scene,
             tick: boolean = true,
             propertyBag: any = {}) {
             super(owner, scene, tick, propertyBag);
+            this.owner = owner;
         }
 
         protected ready(): void {
@@ -27,7 +29,11 @@ module PROJECT {
                 debugger;
             }
 
-            this.GUI = this.scene.getMeshByName("GUIController101").metadata.components[0].instance;
+            this.GUI = GUIController.getGUI(this.scene);
+
+            let selfMaterial:BABYLON.Material = this.owner.material;
+            selfMaterial['albedoTexture'].uScale = 4;
+            selfMaterial['albedoTexture'].vScale = 4;
         }
 
         protected start(): void {
@@ -36,8 +42,6 @@ module PROJECT {
             this.items = this.scene.getMeshesByTags("Pickup");
             this.count = 0;
             this.updateCollectionCount();
-
-            this.GUI.updateTitle('Text2');
         }
 
         protected update(): void {
@@ -72,7 +76,6 @@ module PROJECT {
 
         private updateCollectionCount() {
             this.GUI.updateScore(this.count.toString());
-
         }
 
         protected after(): void {
