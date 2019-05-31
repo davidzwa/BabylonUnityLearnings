@@ -1,4 +1,7 @@
 # Babylon & Unity Toolkit  - Learnings
+
+Want to change/add something? Fork or send me an email at davidzwa@gmail.com
+
 An attempt to give people better access to the Unity Babylon Toolkit (exporter, server) to make your game in the (hopefully) newest BabylonJS and Unity ~2018.3.3f1.
 Goal: Give and collect Unity-BabylonJS examples
 
